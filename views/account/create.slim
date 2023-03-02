@@ -1,0 +1,15 @@
+div.createWorkoutForm
+    form action="/workout/create" method="POST" 
+        input type="text" name="title" placeholder="Workout title"
+        select name="muscletype"
+            - @muscles.each do |muscle|
+                option href="Muscles/#{muscle['id']}" #{muscle["name"]}
+        select name="exercise"
+            - @exercises.each do |exercise|
+                option href="Exercises/#{exercise['id']}"#{exercise["name"]}
+        input type="integer" name="sets" placeholder="sets"
+        input type="integer" name="reps" placeholder="reps"
+        input type="button" id="add-button" value="Add Exercise"
+        input type="submit" value="Finish workout"
+
+

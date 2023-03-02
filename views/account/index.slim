@@ -1,1 +1,9 @@
 p hello
+
+
+
+ul.workoutlist
+    - @result.each do |workout|
+        li 
+            p href="workouts/#{workout['id']}" #{workout["title"]}
+            p = get_all_muscles_for_workout(workout['id'])
