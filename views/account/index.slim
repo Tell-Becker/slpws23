@@ -1,9 +1,13 @@
-p hello
-
-
+p Explore Workouts: 
 
 ul.workoutlist
     - @result.each do |workout|
-        li 
-            p href="workouts/#{workout['id']}" #{workout["title"]}
-            p = get_all_muscles_for_workout(workout['id'])
+        li
+            p.workout-title href="workouts/#{workout['id']}" #{workout["title"]}
+            - workout_muscles = get_all_muscles_for_workout(workout['id'])
+            - workout_muscles.each do |muscle|
+                span.workout-muscle = muscle["name"]
+            - workout_exercise = get_all_exercises_for_workout(workout['id'])
+            -workout_exercise.each do |exercise|
+                span.workout-exercise = exercise["name"]
+            span.workout-sets-reps #{workout["sets"]} x #{workout["reps"]}
