@@ -47,11 +47,26 @@ post('/workout/create') do
     sets = params[:sets1]
     reps = params[:reps1]
 
-    title2 = nil
     muscletype2 = params[:muscletype2]
     exercise2 = params[:exercise2]
     sets2 = params[:sets2]
     reps2 = params[:reps2]
+
+    muscletype3 = params[:muscletype3]
+    exercise3 = params[:exercise3]
+    sets3 = params[:sets3]
+    reps3 = params[:reps3]
+    
+    muscletype4 = params[:muscletype4]
+    exercise4 = params[:exercise4]
+    sets4 = params[:sets4]
+    reps4 = params[:reps4]
+
+    muscletype5 = params[:muscletype5]
+    exercise5 = params[:exercise5]
+    sets5 = params[:sets5]
+    reps5 = params[:reps5]
+
     p "Vi fick in datan #{title}, #{muscletype}, #{exercise}, #{sets}, #{reps}"
     # Funktion som gör att man enklare kan få in de olika övningarna i vardera tabell
     db = connect_to_db('db/Workout_app_database.db')
@@ -59,7 +74,13 @@ post('/workout/create') do
 
     doNotAddTable = "nothing"
     add_values_to_tables(title, muscletype, exercise, sets, reps)
-    add_values_to_tables(doNotAddTable, muscletype2, exercise2, sets2, reps2)
+    add_values_to_tables(title, muscletype2, exercise2, sets2, reps2)
+    add_values_to_tables(title, muscletype3, exercise3, sets3, reps3)
+    add_values_to_tables(title, muscletype4, exercise4, sets4, reps4)
+    add_values_to_tables(title, muscletype5, exercise5, sets5, reps5)
+
+
+
 
     redirect('/workouts')
 end

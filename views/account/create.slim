@@ -10,6 +10,7 @@ div#createWorkoutForm
                 option href="Exercises/#{exercise['id']}"#{exercise["name"]}
         input type="integer" name="sets1" placeholder="sets"
         input type="integer" name="reps1" placeholder="reps"
+
         div.index_space
         select.index_muscletype name="muscletype2"
             - @muscles.each do |muscle|
@@ -19,6 +20,37 @@ div#createWorkoutForm
                 option href="Exercises/#{exercise['id']}"#{exercise["name"]}
         input type="integer" name="sets2" placeholder="sets"
         input type="integer" name="reps2" placeholder="reps"
+
+        div.index_space
+        select.index_muscletype name="muscletype3"
+            - @muscles.each do |muscle|
+                option href="Muscles/#{muscle['id']}" #{muscle["name"]}
+        select name="exercise3"
+            - @exercises.each do |exercise|
+                option href="Exercises/#{exercise['id']}"#{exercise["name"]}
+        input type="integer" name="sets3" placeholder="sets"
+        input type="integer" name="reps3" placeholder="reps"
+
+        div.index_space
+        select.index_muscletype name="muscletype4"
+            - @muscles.each do |muscle|
+                option href="Muscles/#{muscle['id']}" #{muscle["name"]}
+        select name="exercise4"
+            - @exercises.each do |exercise|
+                option href="Exercises/#{exercise['id']}"#{exercise["name"]}
+        input type="integer" name="sets4" placeholder="sets"
+        input type="integer" name="reps4" placeholder="reps"
+
+        div.index_space
+        select.index_muscletype name="muscletype5"
+            - @muscles.each do |muscle|
+                option href="Muscles/#{muscle['id']}" #{muscle["name"]}
+        select name="exercise5"
+            - @exercises.each do |exercise|
+                option href="Exercises/#{exercise['id']}"#{exercise["name"]}
+        input type="integer" name="sets5" placeholder="sets"
+        input type="integer" name="reps5" placeholder="reps"
+
         div.index_space
         / input type="button" id="add-button" value="Add Exercise"
         input type="submit" value="Finish workout"
