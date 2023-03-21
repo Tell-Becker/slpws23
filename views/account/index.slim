@@ -1,9 +1,13 @@
 p Explore Workouts: 
 
 ul.workoutlist
+    - last_title = ""
     - @result.each do |workout|
         li
-            p.workout-title href="workouts/#{workout['id']}" #{workout["title"]}
+            /* Göra ett villkor som säger att om titel innan var samma kan den inte komma igen.¨
+            - if workout["title"] == last_title
+                p.workout-title href="workouts/#{workout['id']}" #{workout["title"]}
+            - last_title = workout["title"]
             - workout_muscles = get_all_muscles_for_workout(workout['id'])
             - workout_muscles.each do |muscle|
                 span.workout-muscle = muscle["name"]

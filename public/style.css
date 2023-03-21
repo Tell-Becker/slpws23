@@ -33,3 +33,10 @@ span.workout-exercise {
     margin-right: 10px;
 }
 
+ul.workoutlist {
+    list-style-type: none;
+}
+
+.workout-title {
+    font-size: 1.5rem;
+}

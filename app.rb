@@ -42,23 +42,42 @@ end
 
 post('/workout/create') do
     title = params[:title]
-    muscletype = params[:muscletype]
-    exercise = params[:exercise]
-    sets = params[:sets]
-    reps = params[:reps]
+    muscletype = params[:muscletype1]
+    exercise = params[:exercise1]
+    sets = params[:sets1]
+    reps = params[:reps1]
+
+    title2 = nil
+    muscletype2 = params[:muscletype2]
+    exercise2 = params[:exercise2]
+    sets2 = params[:sets2]
+    reps2 = params[:reps2]
     p "Vi fick in datan #{title}, #{muscletype}, #{exercise}, #{sets}, #{reps}"
+    # Funktion som gör att man enklare kan få in de olika övningarna i vardera tabell
     db = connect_to_db('db/Workout_app_database.db')
+    db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, 1)
+
+    doNotAddTable = "nothing"
+    add_values_to_tables(title, muscletype, exercise, sets, reps)
+    add_values_to_tables(doNotAddTable, muscletype2, exercise2, sets2, reps2)
+
+    redirect('/workouts')
+end
+
+def add_values_to_tables(title, muscletype, exercise, sets, reps)
+    db = connect_to_db('db/Workout_app_database.db')
+    db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, 1)
     muscle_id = db.execute("SELECT id FROM Muscles WHERE name = ?", muscletype).first()["id"]
     exercise_id = db.execute("SELECT id FROM Exercises WHERE name = ?", exercise).first()["id"]
 
-    db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, 1)
     workout_id = db.execute("SELECT id FROM Workouts ORDER BY id ASC").last["id"]
     
     db.execute("INSERT INTO Workout_Muscle (workout_id, muscle_id) VALUES (?,?)",workout_id, muscle_id)
 
     db.execute("INSERT INTO Workout_exercise (workout_id, exercise_id) VALUES (?,?)",workout_id, exercise_id)
-    redirect('/workouts')
+   
 end
+
 
 # get('/workout') do 
 #     slim(:"account/index")
