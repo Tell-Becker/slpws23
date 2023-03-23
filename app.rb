@@ -107,18 +107,69 @@ end
 get('/profile') do
     slim(:"account/profile")
 end
-# get('/register') do 
-#     slim(:register)
+
+get('/register') do 
+    slim(:"register-login/register")
+end
+
+post('/finishregistration') do
+    username = params[:username]
+    password = params[:password] 
+    password_confirm = params[:confirmpassword]
+    
+    if (password = password_confirm)
+        password_digest = BCrypt::Password.create(password)
+        db = connect_to_db('db/Workout_app_database.db')
+        db.execute("INSERT INTO Users (username, pwdigest) VALUES (?,?)",username, password_digest)
+        redirect('/register')
+    else 
+        "Lösenordet matchade inte"
+    end
+
+end
+
+get('/login') do 
+    slim(:"register-login/login")
+end
+
+post('/finishlogin') do 
+    username = params[:username]
+    password = params[:password]
+    db = connect_to_db('db/Workout_app_database.db')
+    user_login_info = db.execute("SELECT * FROM Users WHERE username = ?", username)
+
+    if user_login_info
+        pwdigest = user_login_info[0][2]
+        user_id = user_login_info[0][0]
+    end
+
+    if pwdigest && BCrypt::Password.new(pwdigest) == password
+        session[:id] = user_id
+        redirect('/')
+    else
+        "Fel LÖSEN"
+    end
+    
+end
+
+get('/logout') do
+    session[:id] = nil
+    redirect('/')
+end
+
+#     if BCrypt::Password.new(pwdigest) == password
+#         session[:id] = user_id
+#         redirect('/')
+#     else
+#         "Fel LÖSEN"
+#     end
 # end
 
-# get('/showlogin') do 
-#     slim(:login)
-# end
 
 # post('/login') do 
 #     # db = sqlite3::Database.new('db/Workout_app_database.db')
 #     # db.results_as_hash = true
-#     redirect('/account')
+#     # redirect('/account')
 # end
 
 # get('/account') do 

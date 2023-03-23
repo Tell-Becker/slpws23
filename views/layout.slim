@@ -10,7 +10,12 @@ html lang="en"
     body 
         nav
             a href="/workouts" Explore
-            a href="/create" Create
-            a href="/profile" Profile 
-            a href="/logout" Log out
+            / Jag vill gömma det gär när man inte är inloggad
+            - if session[:id] != nil
+                a href="/create" Create
+                a href="/profile" Profile 
+                a href="/logout" Logout 
+            - else
+                a href="register" Register
+                a href="/login" Login
         ==yield

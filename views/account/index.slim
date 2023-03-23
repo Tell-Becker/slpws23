@@ -11,10 +11,11 @@ ul.workoutlist
         - workout_muscles = get_all_muscles_for_workout(workout['id'])
         - workout_exercise = get_all_exercises_for_workout(workout['id'])
         
-        - workout_exercise.zip(workout_muscles).each do |exercise, muscle|
-            span.workout-exercise = "#{exercise["name"]}"
-            span.workout-muscle = "#{muscle["name"]}" if muscle
-            span.workout-sets-reps = "#{workout["sets"]} x #{workout["reps"]}"
+        - if workout["sets"] != "" || workout["reps"] != ""
+          - workout_exercise.zip(workout_muscles).each do |exercise, muscle|
+              span.workout-exercise = "#{exercise["name"]}"
+              span.workout-muscle = "#{muscle["name"]}" if muscle
+              span.workout-sets-reps = "#{workout["sets"]} x #{workout["reps"]}"
 
 
 
