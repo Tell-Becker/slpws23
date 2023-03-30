@@ -70,8 +70,12 @@ post('/workout/create') do
     p "Vi fick in datan #{title}, #{muscletype}, #{exercise}, #{sets}, #{reps}"
     # Funktion som gör att man enklare kan få in de olika övningarna i vardera tabell
     db = connect_to_db('db/Workout_app_database.db')
-    db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, 1)
-
+    p "Detta är session:id"
+    p title 
+    p sets 
+    p reps
+    p session[:id]
+    db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, session[:id])
     doNotAddTable = "nothing"
     add_values_to_tables(title, muscletype, exercise, sets, reps)
     add_values_to_tables(title, muscletype2, exercise2, sets2, reps2)
@@ -87,11 +91,12 @@ end
 
 def add_values_to_tables(title, muscletype, exercise, sets, reps)
     db = connect_to_db('db/Workout_app_database.db')
-    db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, 1)
+    
+    db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, session[:id])
     muscle_id = db.execute("SELECT id FROM Muscles WHERE name = ?", muscletype).first()["id"]
     exercise_id = db.execute("SELECT id FROM Exercises WHERE name = ?", exercise).first()["id"]
 
-    workout_id = db.execute("SELECT id FROM Workouts ORDER BY id ASC").last["id"]
+    workout_id = db.execute("SELECT id FROM Workouts ORDER BY id ASC").last()["id"]
     
     db.execute("INSERT INTO Workout_Muscle (workout_id, muscle_id) VALUES (?,?)",workout_id, muscle_id)
 
@@ -105,6 +110,8 @@ end
 # end
 
 get('/profile') do
+    db = connect_to_db('db/Workout_app_database.db')
+    @result = db.execute("SELECT * FROM Workouts")
     slim(:"account/profile")
 end
 

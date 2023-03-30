@@ -6,7 +6,7 @@ div#createWorkoutForm
             - @muscles.each do |muscle|
                 option href="Muscles/#{muscle['id']}" #{muscle["name"]}
         select name="exercise1"
-            - @exercises.each do |exercise|
+            - @exercises.each do |exercise|                 
                 option href="Exercises/#{exercise['id']}"#{exercise["name"]}
         input type="integer" name="sets1" placeholder="sets"
         input type="integer" name="reps1" placeholder="reps"
