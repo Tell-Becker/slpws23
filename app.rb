@@ -70,11 +70,6 @@ post('/workout/create') do
     p "Vi fick in datan #{title}, #{muscletype}, #{exercise}, #{sets}, #{reps}"
     # Funktion som gör att man enklare kan få in de olika övningarna i vardera tabell
     db = connect_to_db('db/Workout_app_database.db')
-    p "Detta är session:id"
-    p title 
-    p sets 
-    p reps
-    p session[:id]
     db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, session[:id])
     doNotAddTable = "nothing"
     add_values_to_tables(title, muscletype, exercise, sets, reps)
@@ -102,6 +97,21 @@ def add_values_to_tables(title, muscletype, exercise, sets, reps)
 
     db.execute("INSERT INTO Workout_exercise (workout_id, exercise_id) VALUES (?,?)",workout_id, exercise_id)
    
+end
+
+get('/workouts/:id/edit') do 
+    db = connect_to_db('db/Workout_app_database.db')
+    id = params[:id].to_i
+    result = db.execute("SELECT * FROM Workouts WHERE id = ?", id).first
+    slim(:"account/edit",locals:{workout:result})
+end
+
+post('workouts/:id/update') do 
+    id = params[:id].to_i
+    title = params[:title]
+    db = connect_to_db('db/Workout_app_database.db')
+    db.execute("UPDATE Workouts SET content=? WHERE id = ?",title,id)
+    redirect(('/profile'))
 end
 
 

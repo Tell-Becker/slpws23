@@ -1,0 +1,14 @@
+div#editworkoutform
+    form action="/workouts/#{workout['id']}/update" method="POST"
+        input type="text" name="content" value="#{workout['title']}" 
+        input type="submit" value="Finish Edit"
+        / input.index_workout_title type="text" name="title" placeholder="Workout title"
+        / div.index_space
+        / select.index_muscletype name="muscletype1"
+        /     - @muscles.each do |muscle|
+        /         option href="Muscles/#{muscle['id']}" #{muscle["name"]}
+        / select name="exercise1"
+        /     - @exercises.each do |exercise|                 
+        /         option href="Exercises/#{exercise['id']}"#{exercise["name"]}
+        / input type="integer" name="sets1" placeholder="sets"
+        / input type="integer" name="reps1" placeholder="reps"
