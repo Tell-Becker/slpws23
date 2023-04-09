@@ -7,7 +7,11 @@ ul.profilelist
         li
             - if workout["title"] != last_title
                 p.workout-title href="workouts/#{workout['id']}" #{workout["title"]}
-                a href="workouts/#{workout['id']}/edit" Uppdatera
+                a.update href="workouts/#{workout['id']}/edit" Uppdatera
+                p
+                form method="POST" action="workouts/#{workout['id']}/delete"
+                    input type="submit" value="Ta bort"
+                p
 
             - last_title = workout["title"]                 
 

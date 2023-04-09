@@ -11,7 +11,12 @@ html lang="en"
         nav
             a href="/workouts" Explore
             / Jag vill gömma det gär när man inte är inloggad
-            - if session[:id] != nil
+            - if session[:username] == "ADMIN"
+                a href="/users" Users
+                a href="/create" Create
+                a href="/profile" Profile 
+                a href="/logout" Logout 
+            - elsif session[:id] != nil
                 a href="/create" Create
                 a href="/profile" Profile 
                 a href="/logout" Logout 

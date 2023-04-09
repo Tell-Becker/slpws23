@@ -1,0 +1,7 @@
+ul.userlist
+    - @result.each do |users|
+        li
+            p.user_li href="workouts/#{users['id']}" #{users["username"]}
+            form method="POST" action="workouts/#{users['id']}/delete_users"
+                    input type="submit" value="Ta bort"
+            

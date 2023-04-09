@@ -1,14 +1,60 @@
 div#editworkoutform
     form action="/workouts/#{workout['id']}/update" method="POST"
-        input type="text" name="content" value="#{workout['title']}" 
+        input type="text" name="title" value="#{workout['title']}" placeholder="title"
+        
+        - workout_muscles = get_all_muscles_for_workout(workout['id'])
+        - workout_exercise = get_all_exercises_for_workout(workout['id'])
+
+        - if workout_exercise != [] && workout["sets"] != "" || workout["reps"] != ""
+            - workout_exercise.zip(workout_muscles).each do |exercise, muscle|
+                p #{exercise['name']}
+                p #{muscle['name']}
+                input type="text" name="sets" value="#{workout['sets']}" placeholder="Exercise-sets"
+                input type="text" name="reps" value="#{workout['reps']}" placeholder="Exercise-reps"
+
+
+        - workout_muscles2 = get_all_muscles_for_workout(@result2['id'])
+        - workout_exercise2 = get_all_exercises_for_workout(@result2['id'])
+
+        - if workout_exercise2 != [] && @result2["sets"] != "" || @result2["reps"] != ""
+            - workout_exercise2.zip(workout_muscles2).each do |exercise, muscle|
+                p #{exercise['name']}
+                p #{muscle['name']}
+                input type="text" name="sets2" value="#{@result2['sets']}" placeholder="Exercise-sets"
+                input type="text" name="reps2" value="#{@result2['reps']}" placeholder="Exercise-reps"
+
+
+        - workout_muscles3 = get_all_muscles_for_workout(@result3['id'])
+        - workout_exercise3 = get_all_exercises_for_workout(@result3['id'])
+
+        - if workout_exercise3 != [] && @result3["sets"] != "" || @result3["reps"] != ""
+            - workout_exercise3.zip(workout_muscles3).each do |exercise, muscle|
+                p #{exercise['name']}
+                p #{muscle['name']}
+                input type="text" name="sets3" value="#{@result3['sets']}" placeholder="Exercise-sets"
+                input type="text" name="reps3" value="#{@result3['reps']}" placeholder="Exercise-reps"
+
+
+        - workout_muscles4 = get_all_muscles_for_workout(@result4['id'])
+        - workout_exercise4 = get_all_exercises_for_workout(@result4['id'])
+
+        - if workout_exercise4 != [] && @result4["sets"] != "" || @result4["reps"] != ""
+            - workout_exercise4.zip(workout_muscles4).each do |exercise, muscle|
+                p #{exercise['name']}
+                p #{muscle['name']}
+                input type="text" name="sets4" value="#{@result4['sets']}" placeholder="Exercise-sets"
+                input type="text" name="reps4" value="#{@result4['reps']}" placeholder="Exercise-reps"
+
+
+        - workout_muscles5 = get_all_muscles_for_workout(@result5['id'])
+        - workout_exercise5 = get_all_exercises_for_workout(@result5['id'])
+
+        - if workout_exercise5 != [] && @result5["sets"] != "" || @result5["reps"] != ""
+            - workout_exercise5.zip(workout_muscles5).each do |exercise, muscle|
+                p #{exercise['name']}
+                p #{muscle['name']}
+                input type="text" name="sets5" value="#{@result5['sets']}" placeholder="Exercise-sets"
+                input type="text" name="reps5" value="#{@result5['reps']}" placeholder="Exercise-reps"
+
+        p
         input type="submit" value="Finish Edit"
-        / input.index_workout_title type="text" name="title" placeholder="Workout title"
-        / div.index_space
-        / select.index_muscletype name="muscletype1"
-        /     - @muscles.each do |muscle|
-        /         option href="Muscles/#{muscle['id']}" #{muscle["name"]}
-        / select name="exercise1"
-        /     - @exercises.each do |exercise|                 
-        /         option href="Exercises/#{exercise['id']}"#{exercise["name"]}
-        / input type="integer" name="sets1" placeholder="sets"
-        / input type="integer" name="reps1" placeholder="reps"
