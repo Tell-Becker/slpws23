@@ -112,34 +112,34 @@ post('/workouts/:id/update') do
     sets5 = params[:sets5]
     reps5 = params[:reps5]
     db = connect_to_db('db/Workout_app_database.db')
-    if sets2 != nil
-        if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 1)
-            id2 = id + 1
-            db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id2)
+    if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 1)
+        id2 = id + 1
+        db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id2)
+        if sets2 != nil
             db.execute("UPDATE Workouts SET sets=? WHERE id = ?",sets2, id2)
             db.execute("UPDATE Workouts SET reps=? WHERE id = ?",reps2, id2)
         end
     end
-    if sets3 != nil
-        if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 2)
-            id3 = id + 2
-            db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id3)
+    if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 2)
+        id3 = id + 2
+        db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id3)
+        if sets3 != nil
             db.execute("UPDATE Workouts SET sets=? WHERE id = ?",sets3, id3)
             db.execute("UPDATE Workouts SET reps=? WHERE id = ?",reps3, id3)
         end
     end
-    if sets4 != nil
-        if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 3)
-            id4 = id + 3
-            db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id4)
+    if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 3)
+        id4 = id + 3
+        db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id4)
+        if sets4 != nil
             db.execute("UPDATE Workouts SET sets=? WHERE id = ?",sets4, id4)
             db.execute("UPDATE Workouts SET reps=? WHERE id = ?",reps4, id4)
         end
     end
-    if sets5 != nil
-        if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 4)
-            id5 = id + 4
-            db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id5)
+    if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 4)
+        id5 = id + 4
+        db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id5)
+        if sets5 != nil
             db.execute("UPDATE Workouts SET sets=? WHERE id = ?",sets5, id5)
             db.execute("UPDATE Workouts SET reps=? WHERE id = ?",reps5, id5)
         end
@@ -148,8 +148,8 @@ post('/workouts/:id/update') do
     #     id5 = id + 4
     #     db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id5)
     # end
+    db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id)
     if sets != nil
-        db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id)
         db.execute("UPDATE Workouts SET sets=? WHERE id = ?",sets, id)
         db.execute("UPDATE Workouts SET reps=? WHERE id = ?",reps, id)
     end
