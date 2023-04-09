@@ -12,9 +12,9 @@ def connect_to_db(path)
     return db
 end
 
-get('/explore') do 
-    slim(:"account/index")
-end
+# get('/explore') do 
+#     slim(:"account/index")
+# end
 
 get('/') do
     redirect("/workouts")
@@ -23,6 +23,7 @@ end
 get('/workouts') do 
     db = connect_to_db('db/Workout_app_database.db')
     @result = db.execute("SELECT * FROM Workouts")
+    @user_result = db.execute("SELECT * FROM Users")
 
     #p @result
     slim(:"account/index")
@@ -187,6 +188,20 @@ post('/workouts/:id/delete') do
 
 
     redirect('/profile')
+end
+
+post('/workouts/:id/delete_admin') do 
+    db = connect_to_db('db/Workout_app_database.db')
+    id = params[:id].to_i
+
+    db.execute("DELETE FROM Workouts WHERE id = ?",id)
+    db.execute("DELETE FROM Workouts WHERE id = ?",id + 1)
+    db.execute("DELETE FROM Workouts WHERE id = ?",id + 2)
+    db.execute("DELETE FROM Workouts WHERE id = ?",id + 3)
+    db.execute("DELETE FROM Workouts WHERE id = ?",id + 4)
+
+
+    redirect('/workouts')
 end
 
 post('/workouts/:id/delete_users') do 

@@ -5,7 +5,16 @@ ul.workoutlist
   - @result.each do |workout|
     li
         - if workout["title"] != last_title
-            p.workout-title href="workouts/#{workout['id']}" #{workout["title"]}
+            p.workout-title href="Workouts/#{workout['id']}" #{workout["title"]}
+            - user_id = workout["user_id"]
+            - if session[:username] == "ADMIN"
+              form method="POST" action="workouts/#{workout['id']}/delete_admin"
+                input type="submit" value="Ta bort"
+              p
+            - @user_result.each do |users|
+              - if workout["user_id"] == users['id']
+                p #{users['username']}
+            p 
         - last_title = workout["title"]
 
         - workout_muscles = get_all_muscles_for_workout(workout['id'])
