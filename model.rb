@@ -4,6 +4,22 @@ def connect_to_db(path)
     return db
 end
 
+def add_values_to_tables(title, muscletype, exercise, sets, reps)
+    db = connect_to_db('db/Workout_app_database.db')
+    
+    db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, session[:id])
+    muscle_id = db.execute("SELECT id FROM Muscles WHERE name = ?", muscletype).first()["id"]
+    exercise_id = db.execute("SELECT id FROM Exercises WHERE name = ?", exercise).first()["id"]
+
+    workout_id = db.execute("SELECT id FROM Workouts ORDER BY id ASC").last()["id"]
+    
+    db.execute("INSERT INTO Workout_Muscle (workout_id, muscle_id) VALUES (?,?)",workout_id, muscle_id)
+
+    db.execute("INSERT INTO Workout_exercise (workout_id, exercise_id) VALUES (?,?)",workout_id, exercise_id)
+   
+end
+
+
 helpers do
     def get_all_muscles_for_workout(workout_id)
         db = connect_to_db('db/Workout_app_database.db')

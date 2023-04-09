@@ -6,11 +6,6 @@ require 'bcrypt'
 require_relative './model.rb'
 enable :sessions
 
-def connect_to_db(path)
-    db = SQLite3::Database.new('db/Workout_app_database.db')
-    db.results_as_hash = true
-    return db
-end
 
 # get('/explore') do 
 #     slim(:"account/index")
@@ -85,21 +80,6 @@ post('/workout/create') do
     redirect('/workouts')
 end
 
-def add_values_to_tables(title, muscletype, exercise, sets, reps)
-    db = connect_to_db('db/Workout_app_database.db')
-    
-    db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, session[:id])
-    muscle_id = db.execute("SELECT id FROM Muscles WHERE name = ?", muscletype).first()["id"]
-    exercise_id = db.execute("SELECT id FROM Exercises WHERE name = ?", exercise).first()["id"]
-
-    workout_id = db.execute("SELECT id FROM Workouts ORDER BY id ASC").last()["id"]
-    
-    db.execute("INSERT INTO Workout_Muscle (workout_id, muscle_id) VALUES (?,?)",workout_id, muscle_id)
-
-    db.execute("INSERT INTO Workout_exercise (workout_id, exercise_id) VALUES (?,?)",workout_id, exercise_id)
-   
-end
-
 get('/workouts/:id/edit') do 
     db = connect_to_db('db/Workout_app_database.db')
     id = params[:id].to_i
@@ -152,16 +132,16 @@ post('/workouts/:id/update') do
         if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 3)
             id4 = id + 3
             db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id4)
-            db.execute("UPDATE Workouts SET sets=? WHERE id = ?",sets2, id4)
-            db.execute("UPDATE Workouts SET reps=? WHERE id = ?",reps2, id4)
+            db.execute("UPDATE Workouts SET sets=? WHERE id = ?",sets4, id4)
+            db.execute("UPDATE Workouts SET reps=? WHERE id = ?",reps4, id4)
         end
     end
     if sets5 != nil
         if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 4)
             id5 = id + 4
             db.execute("UPDATE Workouts SET title=? WHERE id = ?",title,id5)
-            db.execute("UPDATE Workouts SET sets=? WHERE id = ?",sets2, id5)
-            db.execute("UPDATE Workouts SET reps=? WHERE id = ?",reps2, id5)
+            db.execute("UPDATE Workouts SET sets=? WHERE id = ?",sets5, id5)
+            db.execute("UPDATE Workouts SET reps=? WHERE id = ?",reps5, id5)
         end
     end
     # if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 4)
@@ -296,25 +276,3 @@ end
 #     username = "lars"
 #     slim(:"account/index")
 # end
-
-helpers do
-    def get_all_muscles_for_workout(workout_id)
-        db = connect_to_db('db/Workout_app_database.db')
-        return db.execute("
-            SELECT Muscles.name 
-            FROM Workout_Muscle 
-            INNER JOIN Muscles, Workouts 
-            ON Workout_Muscle.workout_id = Workouts.id AND Workout_Muscle.muscle_id = Muscles.id
-            WHERE Workouts.id = ?", workout_id)
-    end
-
-    def get_all_exercises_for_workout(workout_id)
-        db = connect_to_db('db/Workout_app_database.db')
-        return db.execute("
-            SELECT Exercises.name
-            FROM Workout_Exercise
-            Inner JOIN Exercises, Workouts
-            ON Workout_Exercise.workout_id = Workouts.id AND Workout_Exercise.exercise_id = Exercises.id
-            WHERE Workouts.id = ?", workout_id)
-    end
-end
