@@ -64,15 +64,26 @@ post('/workout/create') do
     reps5 = params[:reps5]
 
     p "Vi fick in datan #{title}, #{muscletype}, #{exercise}, #{sets}, #{reps}"
+    p "sets2 = (#{sets2})"
     # Funktion som gör att man enklare kan få in de olika övningarna i vardera tabell
     db = connect_to_db('db/Workout_app_database.db')
     # db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, session[:id])
     doNotAddTable = "nothing"
-    add_values_to_tables(title, muscletype, exercise, sets, reps)
-    add_values_to_tables(title, muscletype2, exercise2, sets2, reps2)
-    add_values_to_tables(title, muscletype3, exercise3, sets3, reps3)
-    add_values_to_tables(title, muscletype4, exercise4, sets4, reps4)
-    add_values_to_tables(title, muscletype5, exercise5, sets5, reps5)
+    if sets != ""
+        add_values_to_tables(title, muscletype, exercise, sets, reps)
+    end
+    if sets2 != ""
+        add_values_to_tables(title, muscletype2, exercise2, sets2, reps2)
+    end
+    if sets3 != ""
+        add_values_to_tables(title, muscletype3, exercise3, sets3, reps3)
+    end
+    if sets4 != ""
+        add_values_to_tables(title, muscletype4, exercise4, sets4, reps4)
+    end
+    if sets5 != ""
+        add_values_to_tables(title, muscletype5, exercise5, sets5, reps5)
+    end
 
 
 
@@ -88,12 +99,35 @@ get('/workouts/:id/edit') do
     id4 = id + 3 
     id5 = id + 4 
 
-    result = db.execute("SELECT * FROM Workouts WHERE id = ?", id).first
-    @result2 = db.execute("SELECT * FROM Workouts WHERE id = ?", id2).first
-    @result3 = db.execute("SELECT * FROM Workouts WHERE id = ?", id3).first
-    @result4 = db.execute("SELECT * FROM Workouts WHERE id = ?", id4).first
-    @result5 = db.execute("SELECT * FROM Workouts WHERE id = ?", id5).first
+    check1 = db.execute("SELECT title FROM Workouts WHERE id = ?", id2)
+    check2 = db.execute("SELECT title FROM Workouts WHERE id = ?", id3)
+    check3 = db.execute("SELECT title FROM Workouts WHERE id = ?", id4)
+    check4 = db.execute("SELECT title FROM Workouts WHERE id = ?", id5)
 
+    result = db.execute("SELECT * FROM Workouts WHERE id = ?", id).first
+    p "check4: #{check4}"
+    p "check3: #{check3}"
+
+    if check1 != nil && check1 != []
+        if check1.first['title'] == result['title']
+            @result2 = db.execute("SELECT * FROM Workouts WHERE id = ?", id2).first
+        end
+    end
+    if check2 != nil && check2 != []
+        if check2.first['title'] == result['title']
+            @result3 = db.execute("SELECT * FROM Workouts WHERE id = ?", id3).first
+        end
+    end 
+    if check3 != nil && check3 != []
+        if check3.first['title'] == result['title']
+            @result4 = db.execute("SELECT * FROM Workouts WHERE id = ?", id4).first
+        end
+    end
+    if check4 != nil && check4 != []
+        if check4.first['title'] == result['title']
+            @result5 = db.execute("SELECT * FROM Workouts WHERE id = ?", id5).first
+        end
+    end
 
     slim(:"account/edit",locals:{workout:result})
 end
@@ -103,14 +137,22 @@ post('/workouts/:id/update') do
     title = params[:title]
     sets = params[:sets]
     reps = params[:reps]
-    sets2 = params[:sets2]
-    reps2 = params[:reps2]
-    sets3 = params[:sets3]
-    reps3 = params[:reps3]
-    sets4 = params[:sets4]
-    reps4 = params[:reps4]
-    sets5 = params[:sets5]
-    reps5 = params[:reps5]
+    if params[:sets2] != nil
+        sets2 = params[:sets2]
+        reps2 = params[:reps2]
+    end
+    if params[:sets3] != nil
+        sets3 = params[:sets3]
+        reps3 = params[:reps3]
+    end
+    if params[:sets4] != nil
+        sets4 = params[:sets4]
+        reps4 = params[:reps4]
+    end
+    if params[:sets5] != nil
+        sets5 = params[:sets5]
+        reps5 = params[:reps5]
+    end
     db = connect_to_db('db/Workout_app_database.db')
     if db.execute("SELECT title FROM Workouts WHERE id = ?", id) == db.execute("SELECT title FROM Workouts WHERE id = ?", id + 1)
         id2 = id + 1
@@ -182,6 +224,14 @@ post('/workouts/:id/delete_admin') do
 
 
     redirect('/workouts')
+end
+
+post('/workouts/:id/copy_funktion') do
+    db = connect_to_db('db/Workout_app_database.db')
+    id = params[:id].to_i
+    db.execute("INSERT INTO Workouts_Users (Workouts_id, Users_id) VALUES (?,?)", id, session[:id])
+    
+    redirect('/profile')
 end
 
 post('/workouts/:id/delete_users') do 

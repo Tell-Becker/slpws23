@@ -8,6 +8,10 @@ def add_values_to_tables(title, muscletype, exercise, sets, reps)
     db = connect_to_db('db/Workout_app_database.db')
     
     db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, session[:id])
+    workout_id = db.execute("SELECT id FROM Workouts WHERE title = ?",title)
+    workout_id = workout_id.last["id"]
+    p "workout_id #{workout_id}"
+    db.execute("INSERT INTO Workouts_Users (Workouts_id, Users_id) VALUES (?,?)", workout_id, session[:id])
     muscle_id = db.execute("SELECT id FROM Muscles WHERE name = ?", muscletype).first()["id"]
     exercise_id = db.execute("SELECT id FROM Exercises WHERE name = ?", exercise).first()["id"]
 

@@ -10,7 +10,10 @@ ul.workoutlist
             - if session[:username] == "ADMIN"
               form method="POST" action="workouts/#{workout['id']}/delete_admin"
                 input type="submit" value="Ta bort"
-              p
+            
+            p
+            form method="POST" action="workouts/#{workout['id']}/copy_funktion"
+              input type="submit" value="Copy"
             - @user_result.each do |users|
               - if workout["user_id"] == users['id']
                 p #{users['username']}
