@@ -6,21 +6,15 @@ require 'bcrypt'
 require_relative './model.rb'
 enable :sessions
 
-
-# get('/explore') do 
-#     slim(:"account/index")
-# end
-
 get('/') do
     redirect("/workouts")
 end
 
 get('/workouts') do 
-    db = connect_to_db('db/Workout_app_database.db')
-    @result = db.execute("SELECT * FROM Workouts")
-    @user_result = db.execute("SELECT * FROM Users")
 
-    #p @result
+    @result = get_everything_from_table('Workouts')
+    @user_result = get_everything_from_table('Users')
+
     slim(:"account/index")
 
 end
@@ -30,9 +24,8 @@ get('/create') do
 end
 
 get('/workout/new') do
-    db = connect_to_db('db/Workout_app_database.db')
-    @muscles = db.execute("SELECT name FROM Muscles")
-    @exercises = db.execute("SELECT name FROM Exercises")
+    @muscles = select_element_from_table('name','Muscles')
+    @exercises = select_element_from_table('name','Exercises')
     slim(:"account/create")
 end
 
@@ -63,12 +56,6 @@ post('/workout/create') do
     sets5 = params[:sets5]
     reps5 = params[:reps5]
 
-    p "Vi fick in datan #{title}, #{muscletype}, #{exercise}, #{sets}, #{reps}"
-    p "sets2 = (#{sets2})"
-    # Funktion som gör att man enklare kan få in de olika övningarna i vardera tabell
-    db = connect_to_db('db/Workout_app_database.db')
-    # db.execute("INSERT INTO Workouts (title, sets, reps, user_id) VALUES (?,?,?,?)",title, sets, reps, session[:id])
-    doNotAddTable = "nothing"
     if sets != ""
         add_values_to_tables(title, muscletype, exercise, sets, reps)
     end
@@ -85,9 +72,6 @@ post('/workout/create') do
         add_values_to_tables(title, muscletype5, exercise5, sets5, reps5)
     end
 
-
-
-
     redirect('/workouts')
 end
 
@@ -99,33 +83,35 @@ get('/workouts/:id/edit') do
     id4 = id + 3 
     id5 = id + 4 
 
-    check1 = db.execute("SELECT title FROM Workouts WHERE id = ?", id2)
-    check2 = db.execute("SELECT title FROM Workouts WHERE id = ?", id3)
-    check3 = db.execute("SELECT title FROM Workouts WHERE id = ?", id4)
-    check4 = db.execute("SELECT title FROM Workouts WHERE id = ?", id5)
+    check1 = select_element_from_table_where_id('title','Workouts',id2)
+    check2 = select_element_from_table_where_id('title','Workouts',id3)
+    check3 = select_element_from_table_where_id('title','Workouts',id4)
+    check4 = select_element_from_table_where_id('title','Workouts',id5)
 
-    result = db.execute("SELECT * FROM Workouts WHERE id = ?", id).first
-    p "check4: #{check4}"
-    p "check3: #{check3}"
+    result = select_element_from_table_where_id('*','Workouts',id)
 
     if check1 != nil && check1 != []
-        if check1.first['title'] == result['title']
-            @result2 = db.execute("SELECT * FROM Workouts WHERE id = ?", id2).first
+        if check1['title'] == result['title']
+            @result2 = select_element_from_table_where_id('*','Workouts',id2)
+            # @result2 = db.execute("SELECT * FROM Workouts WHERE id = ?", id2).first
         end
     end
     if check2 != nil && check2 != []
-        if check2.first['title'] == result['title']
-            @result3 = db.execute("SELECT * FROM Workouts WHERE id = ?", id3).first
+        if check2['title'] == result['title']
+            @result3 = select_element_from_table_where_id('*','Workouts',id3)
+            # @result3 = db.execute("SELECT * FROM Workouts WHERE id = ?", id3).first
         end
     end 
     if check3 != nil && check3 != []
-        if check3.first['title'] == result['title']
-            @result4 = db.execute("SELECT * FROM Workouts WHERE id = ?", id4).first
+        if check3['title'] == result['title']
+            @result4 = select_element_from_table_where_id('*','Workouts',id4)
+            # @result4 = db.execute("SELECT * FROM Workouts WHERE id = ?", id4).first
         end
     end
     if check4 != nil && check4 != []
-        if check4.first['title'] == result['title']
-            @result5 = db.execute("SELECT * FROM Workouts WHERE id = ?", id5).first
+        if check4['title'] == result['title']
+            @result5 = select_element_from_table_where_id('*','Workouts',id5)
+            # @result5 = db.execute("SELECT * FROM Workouts WHERE id = ?", id5).first
         end
     end
 
@@ -317,23 +303,3 @@ get('/logout') do
     session[:username] = nil
     redirect('/')
 end
-
-#     if BCrypt::Password.new(pwdigest) == password
-#         session[:id] = user_id
-#         redirect('/')
-#     else
-#         "Fel LÖSEN"
-#     end
-# end
-
-
-# post('/login') do 
-#     # db = sqlite3::Database.new('db/Workout_app_database.db')
-#     # db.results_as_hash = true
-#     # redirect('/account')
-# end
-
-# get('/account') do 
-#     username = "lars"
-#     slim(:"account/index")
-# end
