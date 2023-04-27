@@ -7,16 +7,30 @@ ul.workoutlist
         - if workout["title"] != last_title
             p.workout-title href="Workouts/#{workout['id']}" #{workout["title"]}
             - user_id = workout["user_id"]
+            - second_user = get_user_id_from_workout_id(workout['id'])
+            / - second_user = second_user["Users_id"]
+            / p #{second_user} 
             - if session[:username] == "ADMIN"
               form method="POST" action="workouts/#{workout['id']}/delete_admin"
                 input type="submit" value="Ta bort"
             
             p
-            form method="POST" action="workouts/#{workout['id']}/copy_funktion"
-              input type="submit" value="Copy"
+            - if session[:id] != nil
+              form method="POST" action="workouts/#{workout['id']}/like_funktion"
+                input type="submit" value="Like"
             - @user_result.each do |users|
               - if workout["user_id"] == users['id']
                 p #{users['username']}
+                - if second_user != nil
+                    p Likad av:
+                    - second_user.each do |extra_users|
+                      - if users['username'] != extra_users['username']
+                        p #{extra_users['username']}
+                /   p Likad av:
+                /   p #{second_user}
+                / - if users['id'] = second_user.first
+                /   p second user är #{second_user}
+                  / p #{users['second_user']}
             p 
         - last_title = workout["title"]
 

@@ -226,12 +226,22 @@ post('/workouts/:id/delete_admin') do
     redirect('/workouts')
 end
 
-post('/workouts/:id/copy_funktion') do
+post('/workouts/:id/like_funktion') do
     db = connect_to_db('db/Workout_app_database.db')
     id = params[:id].to_i
+    what_users = db.execute("SELECT Users_id FROM Workouts_Users WHERE Workouts_id = ?",id)
+    p "what_user:"
+    p what_users
+    what_users.each do |user|
+        if user["Users_id"] == session[:id]
+            redirect('/')
+        end
+
+    end
+
     db.execute("INSERT INTO Workouts_Users (Workouts_id, Users_id) VALUES (?,?)", id, session[:id])
     
-    redirect('/profile')
+    redirect('/')
 end
 
 post('/workouts/:id/delete_users') do 
@@ -247,6 +257,7 @@ end
 get('/profile') do
     db = connect_to_db('db/Workout_app_database.db')
     @result = db.execute("SELECT * FROM Workouts")
+
     slim(:"account/profile")
 end
 
