@@ -37,12 +37,35 @@ def add_values_to_tables(title, muscletype, exercise, sets, reps)
    
 end
 
-def select_element_from_table_where_id(element,table,id)
+def select_element_from_table_where_id(element,table,what_id,id)
     db = connect_to_db('db/Workout_app_database.db')
 
-    return db.execute("SELECT #{element} FROM #{table} WHERE id = ?",id).first
+    return db.execute("SELECT #{element} FROM #{table} WHERE #{what_id} = ?",id).first
 end
 
+def update_table_set_condition_where_id(what_table,what_condition,condition,id)
+    db = connect_to_db('db/Workout_app_database.db')
+
+    return db.execute("UPDATE #{what_table} SET #{what_condition} = ? WHERE id = ?",condition,id)
+end
+
+def delete_from_table_where_id(table,id)
+    db = connect_to_db('db/Workout_app_database.db')
+
+    return db.execute("DELETE FROM #{table} WHERE id = ?",id)
+end
+
+def insert_into_table_item1_and_item2(table,what_id1,what_id2,value1,value2)
+    db = connect_to_db('db/Workout_app_database.db')
+
+    return db.execute("INSERT INTO #{table} (#{what_id1},#{what_id2}) VALUES (?,?)",value1,value2)
+end
+
+def select_value_from_table_where_value(id1,table,what_id,id)
+    db = connect_to_db('db/Workout_app_database.db')
+
+    return db.execute("SELECT #{id1} FROM #{table} WHERE #{what_id} = ?",id)
+end
 
 def get_user_id_from_workout_id(workout_id)
     db = connect_to_db('db/Workout_app_database.db')
