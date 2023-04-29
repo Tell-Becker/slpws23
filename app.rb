@@ -260,13 +260,25 @@ post('/workouts/:id/like_funktion') do
 end
 
 post('/workouts/:id/delete_users') do 
-    if session[:id] != "ADMIN"
+    if session[:username] != "ADMIN"
         redirect('/')
     end
     id = params[:id].to_i
     if session[:username] == "ADMIN" 
+        
+        all_workouts_belonging_to_user = select_value_from_table_where_value('id','Workouts','user_id',id)
+        p "all_workouts_belonging_to_user"
+        p all_workouts_belonging_to_user
+
+        all_workouts_belonging_to_user.each do |user_workouts|
+            delete_from_table_where_id('Workouts',user_workouts['id'])
+        end
+
         delete_from_table_where_id('USERS',id)
+
     end
+
+
     redirect('/users')
 end
 
@@ -288,6 +300,17 @@ post('/finishregistration') do
     username = params[:username]
     password = params[:password] 
     password_confirm = params[:confirmpassword] 
+
+    all_usernames = select_element_from_table('username','Users')
+    p "All_usernames:"
+    p all_usernames
+
+    all_usernames.each do |users|
+        if users['username'] == username
+            raise 'Detta användarnamn är redan taget'
+            redirect('/register')
+        end
+    end
     
     if (password = password_confirm)
         password_digest = BCrypt::Password.create(password)
