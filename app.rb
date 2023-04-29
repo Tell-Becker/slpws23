@@ -192,31 +192,45 @@ post('/workouts/:id/delete') do
     id4 = id + 3 
     id5 = id + 4
 
+        # Behöver göra så att workoutsen tas bort från Workouts_Users !
+    # !
+    # !
+    # !
+    # !
+
+    #puts 'id:'
+
     what_user = select_value_from_table_where_value('user_id','Workouts','id',id)
 
     what_user.each do |user|
         if user["user_id"] == session[:id]
             if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id2)
-                delete_from_table_where_id('Workouts',id2)
+                delete_from_table_where_id('Workouts','id',id2)
+                delete_from_table_where_id('Workouts_Users','Workouts_id',id2)
             end
             if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id3)
-                delete_from_table_where_id('Workouts',id3)
+                delete_from_table_where_id('Workouts','id',id3)
+                delete_from_table_where_id('Workouts_Users','Workouts_id',id3)
+
             end
             if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id4)
-                delete_from_table_where_id('Workouts',id4)
+                delete_from_table_where_id('Workouts','id',id4)
+                delete_from_table_where_id('Workouts_Users','Workouts_id',id2)
             end
             if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id5)
-                delete_from_table_where_id('Workouts',id5)
+                delete_from_table_where_id('Workouts','id',id5)
+                delete_from_table_where_id('Workouts_Users','Workouts_id',id2)
             end
 
-            delete_from_table_where_id('Workouts',id)
+            delete_from_table_where_id('Workouts','id',id)
+            delete_from_table_where_id('Workouts_Users','Workouts_id',id)
+
         end
     end
 
     redirect('/profile')
 end
 
-#Dont know if i actually need this (?)
 post('/workouts/:id/delete_admin') do 
     id = params[:id].to_i
     id2 = id + 1 
@@ -224,21 +238,34 @@ post('/workouts/:id/delete_admin') do
     id4 = id + 3 
     id5 = id + 4
 
+    # Behöver göra så att workoutsen tas bort från Workouts_Users !
+    # !
+    # !
+    # !
+    # !
+
     if session[:username] == "ADMIN"
         if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id2)
-            delete_from_table_where_id('Workouts',id2)
+            delete_from_table_where_id('Workouts','id',id2)
+            delete_from_table_where_id('Workouts_Users','Workouts_id',id2)
         end
         if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id3)
-            delete_from_table_where_id('Workouts',id3)
+            delete_from_table_where_id('Workouts','id',id3)
+            delete_from_table_where_id('Workouts_Users','Workouts_id',id3)
+
         end
         if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id4)
-            delete_from_table_where_id('Workouts',id4)
+            delete_from_table_where_id('Workouts','id',id4)
+            delete_from_table_where_id('Workouts_Users','Workouts_id',id4)
         end
         if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id5)
-            delete_from_table_where_id('Workouts',id5)
+            delete_from_table_where_id('Workouts','id',id5)
+            delete_from_table_where_id('Workouts_Users','Workouts_id',id5)
         end
 
-        delete_from_table_where_id('Workouts',id)
+        delete_from_table_where_id('Workouts','id',id)
+        delete_from_table_where_id('Workouts_Users','Workouts_id',id)
+
     end
 
 
@@ -271,10 +298,22 @@ post('/workouts/:id/delete_users') do
         p all_workouts_belonging_to_user
 
         all_workouts_belonging_to_user.each do |user_workouts|
-            delete_from_table_where_id('Workouts',user_workouts['id'])
+            p 'Hejsan hoppsan'
+            p user_workouts['id']
+            delete_from_table_where_id('Workouts','id',user_workouts['id'])
         end
 
-        delete_from_table_where_id('USERS',id)
+        all_liked_workouts_belonging_to_user = select_value_from_table_where_value('Workouts_id','Workouts_Users','Users_id',id)
+        p "all_liked_workouts_belonging_to_user"
+        p all_liked_workouts_belonging_to_user
+
+        all_liked_workouts_belonging_to_user.each do |liked|
+            p 'hej'
+            p liked['Workouts_id']
+            delete_from_table_where_id('Workouts_Users','Workouts_id',liked['Workouts_id'])
+        end
+
+        delete_from_table_where_id('USERS','id',id)
 
     end
 

@@ -49,10 +49,10 @@ def update_table_set_condition_where_id(what_table,what_condition,condition,id)
     return db.execute("UPDATE #{what_table} SET #{what_condition} = ? WHERE id = ?",condition,id)
 end
 
-def delete_from_table_where_id(table,id)
+def delete_from_table_where_id(table,what_id,id)
     db = connect_to_db('db/Workout_app_database.db')
 
-    return db.execute("DELETE FROM #{table} WHERE id = ?",id)
+    return db.execute("DELETE FROM #{table} WHERE #{what_id} = ?",id)
 end
 
 def insert_into_table_item1_and_item2(table,what_id1,what_id2,value1,value2)
