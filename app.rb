@@ -5,30 +5,66 @@ require 'sqlite3'
 require 'bcrypt'
 require_relative './model.rb'
 enable :sessions
+include Model 
 
+# Start that redirects to '/workouts', Makes it easier to understand the code
+#
 get('/') do
     redirect("/workouts")
 end
 
+# Display landing page that displays all created workouts, and correlating users
+#
+# @see Model#select_element_from_table
 get('/workouts') do 
 
-    @result = get_everything_from_table('Workouts')
-    @user_result = get_everything_from_table('Users')
+    @result = select_element_from_table('*','Workouts')
+    @user_result = select_element_from_table('*','Users')
 
     slim(:"account/index")
 
 end
 
+# Should before have yardoc code? It isn't displayed
+#
+before('/create') do 
+    if (session[:id] == nil)
+        halt 401, 'You cant enter this page unless you are logged in!'
+    end
+end
+
+# Displays a single button
+#
 get('/create') do
     slim(:"account/createButton")
 end
 
+# Before ? 
+before('/workout/new') do 
+    if (session[:id] == nil)
+        halt 401, 'You cant enter this page unless you are logged in!'
+    end
+end
+
+# Displays form containing title, exercises, muscles, sets and reps
+#
+# @see Model#select_element_from_table
 get('/workout/new') do
     @muscles = select_element_from_table('name','Muscles')
     @exercises = select_element_from_table('name','Exercises')
     slim(:"account/new")
 end
 
+# Creates a new workout and redirects to '/workouts
+#
+# @param [String] title, The title of the workout
+# @param [String] muscle, The muscle targeted by the workout
+# @param [String] exercise, The name of the exercise performed in the workout
+# @param [Integer] sets, The amount of sets performed in the exercise
+# @param [Integer] reps, The amount of reps to every set in the exercise
+#
+# @see Model#select_element_from_table
+# @see Model#add_values_to_tables
 post('/workout/create') do
     title = params[:title]
     muscletype = params[:muscletype1]
@@ -56,6 +92,14 @@ post('/workout/create') do
     sets5 = params[:sets5]
     reps5 = params[:reps5]
 
+    all_workouts_titles = select_element_from_table('title','Workouts')
+
+    all_workouts_titles.each do |workout_title|
+        if workout_title['title'] == title
+            halt 401, "Det finns redan en workout med denna titeln, testa att använda en annan titel"
+        end
+    end
+
     if sets != ""
         add_values_to_tables(title, muscletype, exercise, sets, reps)
     end
@@ -75,6 +119,10 @@ post('/workout/create') do
     redirect('/workouts')
 end
 
+# Displays an existing workout and gives opportunity to edit title, sets and reps 
+#
+# @see Model#select_element_from_table_where_id
+# @see Model#select_value_from_table_where_value
 get('/workouts/:id/edit') do 
     id = params[:id].to_i
     id2 = id + 1
@@ -118,6 +166,16 @@ get('/workouts/:id/edit') do
     slim(:"account/edit",locals:{workout:result})
 end
 
+# Updates an existing workout and redirects to '/profile'
+#
+# @param [Integer] id, The workout id
+# @param [String] title, The title of the workout
+# @param [Integer] sets, The amount of sets in the exercise
+# @param [Integer] reps, The amount of reps per set in the exercise
+#
+# @see Model#select_value_from_table_where_value
+# @see Model#select_element_from_table_where_id
+# @see Model#update_table_set_condition_where_id
 post('/workouts/:id/update') do 
     id = params[:id].to_i
     id2 = id + 1 
@@ -185,20 +243,19 @@ post('/workouts/:id/update') do
     redirect('/profile')
 end
 
+# Deletes an existing workout and redirects to '/profile'
+#
+# @param [Integer] id, The workout id
+#
+# @see Model#select_value_from_table_where_value
+# @see Model#select_element_from_table_where_id
+# @see Model#delete_from_table_where_id
 post('/workouts/:id/delete') do 
     id = params[:id].to_i
     id2 = id + 1 
     id3 = id + 2 
     id4 = id + 3 
     id5 = id + 4
-
-        # Behöver göra så att workoutsen tas bort från Workouts_Users !
-    # !
-    # !
-    # !
-    # !
-
-    #puts 'id:'
 
     what_user = select_value_from_table_where_value('user_id','Workouts','id',id)
 
@@ -231,18 +288,19 @@ post('/workouts/:id/delete') do
     redirect('/profile')
 end
 
+# Deletes workout displayed from '/workouts' if logged in user is ADMIN and redirects to '/workouts'
+#
+# @param [Integer] id, The workout id
+#
+# @see Model#select_value_from_table_where_value
+# @see Model#select_element_from_table_where_id
+# @see Model#delete_from_table_where_id
 post('/workouts/:id/delete_admin') do 
     id = params[:id].to_i
     id2 = id + 1 
     id3 = id + 2 
     id4 = id + 3 
     id5 = id + 4
-
-    # Behöver göra så att workoutsen tas bort från Workouts_Users !
-    # !
-    # !
-    # !
-    # !
 
     if session[:username] == "ADMIN"
         if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id2)
@@ -268,10 +326,15 @@ post('/workouts/:id/delete_admin') do
 
     end
 
-
     redirect('/workouts')
 end
 
+# Likes other users workouts and redirects to '/'
+#
+# @param [Integer] id, The workout id
+#
+# @see Model#select_value_from_table_where_value
+# @see Model#insert_into_table_item1_and_item2
 post('/workouts/:id/like_funktion') do
     id = params[:id].to_i
     what_users = select_value_from_table_where_value('Users_id','Workouts_Users','Workouts_id',id)
@@ -286,6 +349,10 @@ post('/workouts/:id/like_funktion') do
     redirect('/')
 end
 
+# Deletes an existing user if logged in user is admin ADMIN and redirects to '/users'
+#
+# @see Model#select_value_from_table_where_value
+# @see Model#delete_from_table_where_id
 post('/workouts/:id/delete_users') do 
     if session[:username] != "ADMIN"
         redirect('/')
@@ -294,22 +361,14 @@ post('/workouts/:id/delete_users') do
     if session[:username] == "ADMIN" 
         
         all_workouts_belonging_to_user = select_value_from_table_where_value('id','Workouts','user_id',id)
-        p "all_workouts_belonging_to_user"
-        p all_workouts_belonging_to_user
 
         all_workouts_belonging_to_user.each do |user_workouts|
-            p 'Hejsan hoppsan'
-            p user_workouts['id']
             delete_from_table_where_id('Workouts','id',user_workouts['id'])
         end
 
         all_liked_workouts_belonging_to_user = select_value_from_table_where_value('Workouts_id','Workouts_Users','Users_id',id)
-        p "all_liked_workouts_belonging_to_user"
-        p all_liked_workouts_belonging_to_user
 
         all_liked_workouts_belonging_to_user.each do |liked|
-            p 'hej'
-            p liked['Workouts_id']
             delete_from_table_where_id('Workouts_Users','Workouts_id',liked['Workouts_id'])
         end
 
@@ -317,36 +376,62 @@ post('/workouts/:id/delete_users') do
 
     end
 
-
     redirect('/users')
 end
 
+# Before?
+before('/profile') do 
+    if (session[:id] == nil)
+        halt 401, 'You cant enter this page unless you are logged in!'
+    end
+end
+
+# Displays workouts that user owns
+#
+# @see Model#select_element_from_table
 get('/profile') do
     @result = select_element_from_table('*','Workouts')
     slim(:"account/profile")
 end
 
+# Before ? 
+before('/users') do 
+    if (session[:username] != 'ADMIN')
+        halt 401, 'You cant enter this page unless you are ADMIN!'
+    end
+end
+
+# Displays all users
+#
 get('/users') do 
     @result = select_element_from_table('*','Users')
     slim(:"account/users")
 end
 
+# Displays a register form
+#
 get('/register') do 
     slim(:"register-login/register")
 end
 
+# Attempts registration
+#
+# @param [String] username, The username
+# @param [String] password, The password
+# @param [String] password confirmation, The password confirmation
+#
+# @see Model#select_element_from_table
+# @see Model#insert_into_table_item1_and_item2
 post('/finishregistration') do
     username = params[:username]
     password = params[:password] 
     password_confirm = params[:confirmpassword] 
 
     all_usernames = select_element_from_table('username','Users')
-    p "All_usernames:"
-    p all_usernames
 
     all_usernames.each do |users|
         if users['username'] == username
-            raise 'Detta användarnamn är redan taget'
+            halt 401, 'This username is already taken, make another one!'
             redirect('/register')
         end
     end
@@ -361,32 +446,60 @@ post('/finishregistration') do
 
 end
 
+#Displays a login form
+#
 get('/login') do 
     slim(:"register-login/login")
 end
 
+# Attempts login and updates the session and redirects to '/' if log in worked and 'login' if it didn't work
+#
+# @param [String] username, The username
+# @param [String] password, The password
+#
+# @see Model#select_value_from_table_where_value
 post('/finishlogin') do 
     username = params[:username]
     password = params[:password]
-    db = connect_to_db('db/Workout_app_database.db')
     user_login_info = select_value_from_table_where_value('*','Users','username',username)
-    # user_login_info = db.execute("SELECT * FROM Users WHERE username = ?", username)
 
-    if user_login_info
-        pwdigest = user_login_info[0][2]
-        user_id = user_login_info[0][0]
+    if session[:login_tries] == nil
+        session[:login_tries] = 0
     end
 
-    if pwdigest && BCrypt::Password.new(pwdigest) == password
-        session[:id] = user_id
-        session[:username] = username
-        redirect('/')
-    else
-        "Fel LÖSEN"
+    if session[:login_tries] >= 2
+
+        session[:last_login_time] = session[:last_login_time] || Time.now
+
+        if Time.now - session[:last_login_time] > 20 
+            session[:login_tries] = 0 
+            session[:last_login_time] = nil
+        else
+            return "You have tried to many times, you need to wait 20 seconds before trying to login again"
+        end
     end
-    
+
+    if user_login_info != []
+        if user_login_info
+            pwdigest = user_login_info[0][2]
+            user_id = user_login_info[0][0]
+        end
+
+        if pwdigest && BCrypt::Password.new(pwdigest) == password
+            session[:login_tries] = 0
+            session[:id] = user_id
+            session[:username] = username
+            redirect('/')
+        else
+            "Fel LÖSEN"
+        end
+    end
+    session[:login_tries] += 1 
+    redirect('/login')
 end
 
+# Logs user out and redirects to '/'
+#
 get('/logout') do
     session[:id] = nil
     session[:username] = nil
