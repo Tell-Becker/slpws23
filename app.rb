@@ -21,7 +21,7 @@ get('/workouts') do
     @result = select_element_from_table('*','Workouts')
     @user_result = select_element_from_table('*','Users')
 
-    slim(:"account/index")
+    slim(:"workouts/index")
 
 end
 
@@ -29,20 +29,22 @@ end
 #
 before('/create') do 
     if (session[:id] == nil)
-        halt 401, 'You cant enter this page unless you are logged in!'
+        session[:error] = 'You cant enter this page unless you are logged in!'
+        redirect('/error')
     end
 end
 
 # Displays a single button
 #
 get('/create') do
-    slim(:"account/createButton")
+    slim(:"workouts/createButton")
 end
 
 # Before ? 
 before('/workout/new') do 
     if (session[:id] == nil)
-        halt 401, 'You cant enter this page unless you are logged in!'
+        session[:error] = 'You cant create a workout unless you are logged in!'
+        redirect('/error')
     end
 end
 
@@ -52,7 +54,7 @@ end
 get('/workout/new') do
     @muscles = select_element_from_table('name','Muscles')
     @exercises = select_element_from_table('name','Exercises')
-    slim(:"account/new")
+    slim(:"workouts/new")
 end
 
 # Creates a new workout and redirects to '/workouts
@@ -62,6 +64,7 @@ end
 # @param [String] exercise, The name of the exercise performed in the workout
 # @param [Integer] sets, The amount of sets performed in the exercise
 # @param [Integer] reps, The amount of reps to every set in the exercise
+# @param [Integer] user_id, The id belonging to the user
 #
 # @see Model#select_element_from_table
 # @see Model#add_values_to_tables
@@ -92,28 +95,31 @@ post('/workout/create') do
     sets5 = params[:sets5]
     reps5 = params[:reps5]
 
+    user_id = session[:id]
+
     all_workouts_titles = select_element_from_table('title','Workouts')
 
     all_workouts_titles.each do |workout_title|
         if workout_title['title'] == title
-            halt 401, "Det finns redan en workout med denna titeln, testa att använda en annan titel"
+            session[:error] = "There already exists a workout with this title, try a new one!"
+            redirect('/error')
         end
     end
 
     if sets != ""
-        add_values_to_tables(title, muscletype, exercise, sets, reps)
+        add_values_to_tables(title, muscletype, exercise, sets, reps, user_id)
     end
     if sets2 != ""
-        add_values_to_tables(title, muscletype2, exercise2, sets2, reps2)
+        add_values_to_tables(title, muscletype2, exercise2, sets2, reps2, user_id)
     end
     if sets3 != ""
-        add_values_to_tables(title, muscletype3, exercise3, sets3, reps3)
+        add_values_to_tables(title, muscletype3, exercise3, sets3, reps3, user_id)
     end
     if sets4 != ""
-        add_values_to_tables(title, muscletype4, exercise4, sets4, reps4)
+        add_values_to_tables(title, muscletype4, exercise4, sets4, reps4, user_id)
     end
     if sets5 != ""
-        add_values_to_tables(title, muscletype5, exercise5, sets5, reps5)
+        add_values_to_tables(title, muscletype5, exercise5, sets5, reps5, user_id)
     end
 
     redirect('/workouts')
@@ -138,7 +144,14 @@ get('/workouts/:id/edit') do
     result = select_element_from_table_where_id('*','Workouts','id',id)
 
     what_user = select_value_from_table_where_value('user_id','Workouts','id',id)
+    p "what_user:"
+    p what_user
+   
     what_user.each do |user|
+        if session[:id] != user["user_id"]
+            session[:error] = 'You cant edit workouts if you are not logged in!'
+            redirect('/error')
+        end    
         if user["user_id"] == session[:id]
             if check1 != nil && check1 != []
                 if check1['title'] == result['title']
@@ -163,7 +176,7 @@ get('/workouts/:id/edit') do
         end
     end
 
-    slim(:"account/edit",locals:{workout:result})
+    slim(:"workouts/edit",locals:{workout:result})
 end
 
 # Updates an existing workout and redirects to '/profile'
@@ -382,7 +395,8 @@ end
 # Before?
 before('/profile') do 
     if (session[:id] == nil)
-        halt 401, 'You cant enter this page unless you are logged in!'
+        session[:error] = 'You cant enter this page unless you are logged in!'
+        redirect('/error')
     end
 end
 
@@ -397,7 +411,8 @@ end
 # Before ? 
 before('/users') do 
     if (session[:username] != 'ADMIN')
-        halt 401, 'You cant enter this page unless you are ADMIN!'
+        session[:error] = 'You cant enter this page unless you are ADMIN!'
+        redirect('error')
     end
 end
 
@@ -475,7 +490,8 @@ post('/finishlogin') do
             session[:login_tries] = 0 
             session[:last_login_time] = nil
         else
-            return "You have tried to many times, you need to wait 20 seconds before trying to login again"
+            session[:error] = "You have tried to many times, you need to wait 20 seconds before trying to login again" 
+            redirect('/error')
         end
     end
 
@@ -504,4 +520,10 @@ get('/logout') do
     session[:id] = nil
     session[:username] = nil
     redirect('/')
+end
+
+# Displays an error message
+#
+get('/error') do 
+    slim(:"error")
 end
