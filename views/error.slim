@@ -6,3 +6,7 @@ form action="workouts" method="GET"
 - if session[:error] == "You have tried to many times, you need to wait 20 seconds before trying to login again"
     form action="login" method="GET" 
         input type="submit" value="Go Back to Login"/
+
+- if session[:error] == "This username is already taken, make another one!" || session[:error] == "Lösenordet matchade inte" ||session[:error] == "No username"
+    form action="register" method="GET" 
+        input type="submit" value="Go Back to Register"/

@@ -25,11 +25,22 @@ get('/workouts') do
 
 end
 
-# Should before have yardoc code? It isn't displayed
+# Checks if user can enter page 
 #
-before('/create') do 
-    if (session[:id] == nil)
+before do 
+    @protected_routes = ['/create','/workout/new','/profile']
+
+    if (session[:id] == nil) && (@protected_routes.include?(request.path_info))
+        # (request.path_info == '/create')
         session[:error] = 'You cant enter this page unless you are logged in!'
+        redirect('/error')
+ 
+    end
+
+    @routes_for_admin = ['/users']
+
+    if (session[:username] != 'ADMIN') && (@routes_for_admin.include?(request.path_info))
+        session[:error] = 'You cant enter this page unless you are ADMIN!'
         redirect('/error')
     end
 end
@@ -38,14 +49,6 @@ end
 #
 get('/create') do
     slim(:"workouts/createButton")
-end
-
-# Before ? 
-before('/workout/new') do 
-    if (session[:id] == nil)
-        session[:error] = 'You cant create a workout unless you are logged in!'
-        redirect('/error')
-    end
 end
 
 # Displays form containing title, exercises, muscles, sets and reps
@@ -149,7 +152,7 @@ get('/workouts/:id/edit') do
    
     what_user.each do |user|
         if session[:id] != user["user_id"]
-            session[:error] = 'You cant edit workouts if you are not logged in!'
+            session[:error] = 'You cant edit workouts if you are not logged in! Or own them!'
             redirect('/error')
         end    
         if user["user_id"] == session[:id]
@@ -270,27 +273,36 @@ post('/workouts/:id/delete') do
     id4 = id + 3 
     id5 = id + 4
 
+    if session[:id] == nil
+        session[:error] = "You can't delete wokrouts if you are not logged in"
+        redirect('/errror')
+    end
+
     what_user = select_value_from_table_where_value('user_id','Workouts','id',id)
 
     what_user.each do |user|
         if user["user_id"] == session[:id]
-            if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id2)
-                delete_from_table_where_id('Workouts','id',id2)
-                delete_from_table_where_id('Workouts_Users','Workouts_id',id2)
+            i = 1 
+            while i < 5
+                if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id + i)
+                    delete_from_table_where_id('Workouts','id',id + i)
+                    delete_from_table_where_id('Workouts_Users','Workouts_id',id + i)
+                end
+                i += 1
             end
-            if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id3)
-                delete_from_table_where_id('Workouts','id',id3)
-                delete_from_table_where_id('Workouts_Users','Workouts_id',id3)
+            # if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id3)
+            #     delete_from_table_where_id('Workouts','id',id3)
+            #     delete_from_table_where_id('Workouts_Users','Workouts_id',id3)
 
-            end
-            if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id4)
-                delete_from_table_where_id('Workouts','id',id4)
-                delete_from_table_where_id('Workouts_Users','Workouts_id',id2)
-            end
-            if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id5)
-                delete_from_table_where_id('Workouts','id',id5)
-                delete_from_table_where_id('Workouts_Users','Workouts_id',id2)
-            end
+            # end
+            # if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id4)
+            #     delete_from_table_where_id('Workouts','id',id4)
+            #     delete_from_table_where_id('Workouts_Users','Workouts_id',id4)
+            # end
+            # if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id5)
+            #     delete_from_table_where_id('Workouts','id',id5)
+            #     delete_from_table_where_id('Workouts_Users','Workouts_id',id5)
+            # end
 
             delete_from_table_where_id('Workouts','id',id)
             delete_from_table_where_id('Workouts_Users','Workouts_id',id)
@@ -316,23 +328,31 @@ post('/workouts/:id/delete_admin') do
     id5 = id + 4
 
     if session[:username] == "ADMIN"
-        if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id2)
-            delete_from_table_where_id('Workouts','id',id2)
-            delete_from_table_where_id('Workouts_Users','Workouts_id',id2)
+        i = 1 
+        while i < 5
+            if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id + i)
+                delete_from_table_where_id('Workouts','id',id + i)
+                delete_from_table_where_id('Workouts_Users','Workouts_id',id + i)
+            end
+            i += 1
         end
-        if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id3)
-            delete_from_table_where_id('Workouts','id',id3)
-            delete_from_table_where_id('Workouts_Users','Workouts_id',id3)
+        # if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id2)
+        #     delete_from_table_where_id('Workouts','id',id2)
+        #     delete_from_table_where_id('Workouts_Users','Workouts_id',id2)
+        # end
+        # if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id3)
+        #     delete_from_table_where_id('Workouts','id',id3)
+        #     delete_from_table_where_id('Workouts_Users','Workouts_id',id3)
 
-        end
-        if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id4)
-            delete_from_table_where_id('Workouts','id',id4)
-            delete_from_table_where_id('Workouts_Users','Workouts_id',id4)
-        end
-        if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id5)
-            delete_from_table_where_id('Workouts','id',id5)
-            delete_from_table_where_id('Workouts_Users','Workouts_id',id5)
-        end
+        # end
+        # if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id4)
+        #     delete_from_table_where_id('Workouts','id',id4)
+        #     delete_from_table_where_id('Workouts_Users','Workouts_id',id4)
+        # end
+        # if select_element_from_table_where_id('title','Workouts','id',id) == select_element_from_table_where_id('title','Workouts','id',id5)
+        #     delete_from_table_where_id('Workouts','id',id5)
+        #     delete_from_table_where_id('Workouts_Users','Workouts_id',id5)
+        # end
 
         delete_from_table_where_id('Workouts','id',id)
         delete_from_table_where_id('Workouts_Users','Workouts_id',id)
@@ -392,28 +412,12 @@ post('/workouts/:id/delete_users') do
     redirect('/users')
 end
 
-# Before?
-before('/profile') do 
-    if (session[:id] == nil)
-        session[:error] = 'You cant enter this page unless you are logged in!'
-        redirect('/error')
-    end
-end
-
 # Displays workouts that user owns
 #
 # @see Model#select_element_from_table
 get('/profile') do
     @result = select_element_from_table('*','Workouts')
     slim(:"account/profile")
-end
-
-# Before ? 
-before('/users') do 
-    if (session[:username] != 'ADMIN')
-        session[:error] = 'You cant enter this page unless you are ADMIN!'
-        redirect('error')
-    end
 end
 
 # Displays all users
@@ -446,17 +450,22 @@ post('/finishregistration') do
 
     all_usernames.each do |users|
         if users['username'] == username
-            halt 401, 'This username is already taken, make another one!'
-            redirect('/register')
+            session[:error] = "This username is already taken, make another one!"
+            redirect('/error')
         end
     end
+    if username == nil || username == ""
+        session[:error] = "No username"
+        redirect('/error')
+    end
     
-    if (password = password_confirm)
+    if (password == password_confirm)
         password_digest = BCrypt::Password.create(password)
         insert_into_table_item1_and_item2('Users','username','pwdigest',username,password_digest)
         redirect('/register')
     else 
-        "Lösenordet matchade inte"
+        session[:error] = "Lösenordet matchade inte"
+        redirect('/error')
     end
 
 end

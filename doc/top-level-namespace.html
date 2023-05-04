@@ -161,6 +161,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="top-level-namespace.html#GET__error-instance_method" title="#GET /error (instance method)">#<strong>GET /error</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Displays an error message.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="top-level-namespace.html#GET__login-instance_method" title="#GET /login (instance method)">#<strong>GET /login</strong>  &#x21d2; Object </a>
     
 
@@ -633,15 +657,58 @@
       <pre class="lines">
 
 
-38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 39</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/create</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;account/createButton&quot;</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;workouts/createButton&quot;</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="GET__error-instance_method">
+  
+    #<strong>GET /error</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Displays an error message</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+537
+538
+539</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app.rb', line 537</span>
+
+<span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/error</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
+    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;error&quot;</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -676,12 +743,12 @@
       <pre class="lines">
 
 
-451
-452
-453</pre>
+476
+477
+478</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 451</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 476</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/login</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;register-login/login&quot;</span><span class='rparen'>)</span>
@@ -719,14 +786,14 @@
       <pre class="lines">
 
 
-503
-504
-505
-506
-507</pre>
+529
+530
+531
+532
+533</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 503</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 529</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/logout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -773,13 +840,13 @@
       <pre class="lines">
 
 
-392
-393
-394
-395</pre>
+411
+412
+413
+414</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 392</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 411</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/profile</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='ivar'>@result</span> <span class='op'>=</span> <span class='id identifier rubyid_select_element_from_table'><span class='object_link'><a href="Model.html#select_element_from_table-instance_method" title="Model#select_element_from_table (method)">select_element_from_table</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Workouts</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -818,12 +885,12 @@
       <pre class="lines">
 
 
-413
-414
-415</pre>
+433
+434
+435</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 413</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 433</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/register</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;register-login/register&quot;</span><span class='rparen'>)</span>
@@ -861,13 +928,13 @@
       <pre class="lines">
 
 
-406
-407
-408
-409</pre>
+426
+427
+428
+429</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 406</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 426</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/users</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='ivar'>@result</span> <span class='op'>=</span> <span class='id identifier rubyid_select_element_from_table'><span class='object_link'><a href="Model.html#select_element_from_table-instance_method" title="Model#select_element_from_table (method)">select_element_from_table</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Users</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -913,19 +980,19 @@
       <pre class="lines">
 
 
-52
-53
 54
 55
-56</pre>
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 54</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/workout/new</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='ivar'>@muscles</span> <span class='op'>=</span> <span class='id identifier rubyid_select_element_from_table'><span class='object_link'><a href="Model.html#select_element_from_table-instance_method" title="Model#select_element_from_table (method)">select_element_from_table</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>name</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Muscles</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
     <span class='ivar'>@exercises</span> <span class='op'>=</span> <span class='id identifier rubyid_select_element_from_table'><span class='object_link'><a href="Model.html#select_element_from_table-instance_method" title="Model#select_element_from_table (method)">select_element_from_table</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>name</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Exercises</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;account/new&quot;</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;workouts/new&quot;</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -984,7 +1051,7 @@
     <span class='ivar'>@result</span> <span class='op'>=</span> <span class='id identifier rubyid_select_element_from_table'><span class='object_link'><a href="Model.html#select_element_from_table-instance_method" title="Model#select_element_from_table (method)">select_element_from_table</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Workouts</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
     <span class='ivar'>@user_result</span> <span class='op'>=</span> <span class='id identifier rubyid_select_element_from_table'><span class='object_link'><a href="Model.html#select_element_from_table-instance_method" title="Model#select_element_from_table (method)">select_element_from_table</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Users</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 
-    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;account/index&quot;</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;workouts/index&quot;</span><span class='rparen'>)</span>
 
 <span class='kw'>end</span></pre>
     </td>
@@ -1029,12 +1096,6 @@
       <pre class="lines">
 
 
-126
-127
-128
-129
-130
-131
 132
 133
 134
@@ -1070,10 +1131,23 @@
 164
 165
 166
-167</pre>
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 132</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/workouts/:id/edit</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -1090,7 +1164,14 @@
     <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_select_element_from_table_where_id'><span class='object_link'><a href="Model.html#select_element_from_table_where_id-instance_method" title="Model#select_element_from_table_where_id (method)">select_element_from_table_where_id</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Workouts</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
 
     <span class='id identifier rubyid_what_user'>what_user</span> <span class='op'>=</span> <span class='id identifier rubyid_select_value_from_table_where_value'><span class='object_link'><a href="Model.html#select_value_from_table_where_value-instance_method" title="Model#select_value_from_table_where_value (method)">select_value_from_table_where_value</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>user_id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Workouts</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_p'>p</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>what_user:</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_what_user'>what_user</span>
+   
     <span class='id identifier rubyid_what_user'>what_user</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_user'>user</span><span class='op'>|</span>
+        <span class='kw'>if</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='id identifier rubyid_user'>user</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+            <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:error</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>You cant edit workouts if you are not logged in! Or own them!</span><span class='tstring_end'>&#39;</span></span>
+            <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/error</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+        <span class='kw'>end</span>    
         <span class='kw'>if</span> <span class='id identifier rubyid_user'>user</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
             <span class='kw'>if</span> <span class='id identifier rubyid_check1'>check1</span> <span class='op'>!=</span> <span class='kw'>nil</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_check1'>check1</span> <span class='op'>!=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
                 <span class='kw'>if</span> <span class='id identifier rubyid_check1'>check1</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_result'>result</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -1115,7 +1196,7 @@
         <span class='kw'>end</span>
     <span class='kw'>end</span>
 
-    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;account/edit&quot;</span><span class='comma'>,</span><span class='label'>locals:</span><span class='lbrace'>{</span><span class='label'>workout:</span><span class='id identifier rubyid_result'>result</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;workouts/edit&quot;</span><span class='comma'>,</span><span class='label'>locals:</span><span class='lbrace'>{</span><span class='label'>workout:</span><span class='id identifier rubyid_result'>result</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1193,31 +1274,6 @@
       <pre class="lines">
 
 
-461
-462
-463
-464
-465
-466
-467
-468
-469
-470
-471
-472
-473
-474
-475
-476
-477
-478
-479
-480
-481
-482
-483
-484
-485
 486
 487
 488
@@ -1231,10 +1287,36 @@
 496
 497
 498
-499</pre>
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 461</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 486</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/finishlogin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='id identifier rubyid_username'>username</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span>
@@ -1253,7 +1335,8 @@
             <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:login_tries</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>0</span> 
             <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:last_login_time</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>nil</span>
         <span class='kw'>else</span>
-            <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You have tried to many times, you need to wait 20 seconds before trying to login again</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:error</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You have tried to many times, you need to wait 20 seconds before trying to login again</span><span class='tstring_end'>&quot;</span></span> 
+            <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/error</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
         <span class='kw'>end</span>
     <span class='kw'>end</span>
 
@@ -1369,32 +1452,37 @@
       <pre class="lines">
 
 
-425
-426
-427
-428
-429
-430
-431
-432
-433
-434
-435
-436
-437
-438
-439
-440
-441
-442
-443
-444
 445
 446
-447</pre>
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 425</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 445</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/finishregistration</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_username'>username</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span>
@@ -1405,17 +1493,22 @@
 
     <span class='id identifier rubyid_all_usernames'>all_usernames</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_users'>users</span><span class='op'>|</span>
         <span class='kw'>if</span> <span class='id identifier rubyid_users'>users</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>username</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_username'>username</span>
-            <span class='id identifier rubyid_halt'>halt</span> <span class='int'>401</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This username is already taken, make another one!</span><span class='tstring_end'>&#39;</span></span>
-            <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/register</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:error</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>This username is already taken, make another one!</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/error</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
         <span class='kw'>end</span>
     <span class='kw'>end</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_username'>username</span> <span class='op'>==</span> <span class='kw'>nil</span> <span class='op'>||</span> <span class='id identifier rubyid_username'>username</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+        <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:error</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No username</span><span class='tstring_end'>&quot;</span></span>
+        <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/error</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
     
-    <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span> <span class='op'>=</span> <span class='id identifier rubyid_password_confirm'>password_confirm</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span> <span class='op'>==</span> <span class='id identifier rubyid_password_confirm'>password_confirm</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_password_digest'>password_digest</span> <span class='op'>=</span> <span class='const'>BCrypt</span><span class='op'>::</span><span class='const'>Password</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_insert_into_table_item1_and_item2'><span class='object_link'><a href="Model.html#insert_into_table_item1_and_item2-instance_method" title="Model#insert_into_table_item1_and_item2 (method)">insert_into_table_item1_and_item2</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Users</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>username</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pwdigest</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_username'>username</span><span class='comma'>,</span><span class='id identifier rubyid_password_digest'>password_digest</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/register</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
     <span class='kw'>else</span> 
-        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Lösenordet matchade inte</span><span class='tstring_end'>&quot;</span></span>
+        <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:error</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Lösenordet matchade inte</span><span class='tstring_end'>&quot;</span></span>
+        <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/error</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
     <span class='kw'>end</span>
 
 <span class='kw'>end</span></pre>
@@ -1525,6 +1618,22 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>user_id,</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The id belonging to the user</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 
@@ -1545,9 +1654,6 @@
       <pre class="lines">
 
 
-68
-69
-70
 71
 72
 73
@@ -1597,10 +1703,16 @@
 117
 118
 119
-120</pre>
+120
+121
+122
+123
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 71</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/workout/create</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_title'>title</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:title</span><span class='rbracket'>]</span>
@@ -1629,28 +1741,31 @@
     <span class='id identifier rubyid_sets5'>sets5</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:sets5</span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_reps5'>reps5</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:reps5</span><span class='rbracket'>]</span>
 
+    <span class='id identifier rubyid_user_id'>user_id</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
+
     <span class='id identifier rubyid_all_workouts_titles'>all_workouts_titles</span> <span class='op'>=</span> <span class='id identifier rubyid_select_element_from_table'><span class='object_link'><a href="Model.html#select_element_from_table-instance_method" title="Model#select_element_from_table (method)">select_element_from_table</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Workouts</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 
     <span class='id identifier rubyid_all_workouts_titles'>all_workouts_titles</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_workout_title'>workout_title</span><span class='op'>|</span>
         <span class='kw'>if</span> <span class='id identifier rubyid_workout_title'>workout_title</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_title'>title</span>
-            <span class='id identifier rubyid_halt'>halt</span> <span class='int'>401</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Det finns redan en workout med denna titeln, testa att använda en annan titel</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:error</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>There already exists a workout with this title, try a new one!</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/error</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
         <span class='kw'>end</span>
     <span class='kw'>end</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_sets'>sets</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
-        <span class='id identifier rubyid_add_values_to_tables'><span class='object_link'><a href="Model.html#add_values_to_tables-instance_method" title="Model#add_values_to_tables (method)">add_values_to_tables</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_muscletype'>muscletype</span><span class='comma'>,</span> <span class='id identifier rubyid_exercise'>exercise</span><span class='comma'>,</span> <span class='id identifier rubyid_sets'>sets</span><span class='comma'>,</span> <span class='id identifier rubyid_reps'>reps</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_add_values_to_tables'><span class='object_link'><a href="Model.html#add_values_to_tables-instance_method" title="Model#add_values_to_tables (method)">add_values_to_tables</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_muscletype'>muscletype</span><span class='comma'>,</span> <span class='id identifier rubyid_exercise'>exercise</span><span class='comma'>,</span> <span class='id identifier rubyid_sets'>sets</span><span class='comma'>,</span> <span class='id identifier rubyid_reps'>reps</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_sets2'>sets2</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
-        <span class='id identifier rubyid_add_values_to_tables'><span class='object_link'><a href="Model.html#add_values_to_tables-instance_method" title="Model#add_values_to_tables (method)">add_values_to_tables</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_muscletype2'>muscletype2</span><span class='comma'>,</span> <span class='id identifier rubyid_exercise2'>exercise2</span><span class='comma'>,</span> <span class='id identifier rubyid_sets2'>sets2</span><span class='comma'>,</span> <span class='id identifier rubyid_reps2'>reps2</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_add_values_to_tables'><span class='object_link'><a href="Model.html#add_values_to_tables-instance_method" title="Model#add_values_to_tables (method)">add_values_to_tables</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_muscletype2'>muscletype2</span><span class='comma'>,</span> <span class='id identifier rubyid_exercise2'>exercise2</span><span class='comma'>,</span> <span class='id identifier rubyid_sets2'>sets2</span><span class='comma'>,</span> <span class='id identifier rubyid_reps2'>reps2</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_sets3'>sets3</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
-        <span class='id identifier rubyid_add_values_to_tables'><span class='object_link'><a href="Model.html#add_values_to_tables-instance_method" title="Model#add_values_to_tables (method)">add_values_to_tables</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_muscletype3'>muscletype3</span><span class='comma'>,</span> <span class='id identifier rubyid_exercise3'>exercise3</span><span class='comma'>,</span> <span class='id identifier rubyid_sets3'>sets3</span><span class='comma'>,</span> <span class='id identifier rubyid_reps3'>reps3</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_add_values_to_tables'><span class='object_link'><a href="Model.html#add_values_to_tables-instance_method" title="Model#add_values_to_tables (method)">add_values_to_tables</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_muscletype3'>muscletype3</span><span class='comma'>,</span> <span class='id identifier rubyid_exercise3'>exercise3</span><span class='comma'>,</span> <span class='id identifier rubyid_sets3'>sets3</span><span class='comma'>,</span> <span class='id identifier rubyid_reps3'>reps3</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_sets4'>sets4</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
-        <span class='id identifier rubyid_add_values_to_tables'><span class='object_link'><a href="Model.html#add_values_to_tables-instance_method" title="Model#add_values_to_tables (method)">add_values_to_tables</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_muscletype4'>muscletype4</span><span class='comma'>,</span> <span class='id identifier rubyid_exercise4'>exercise4</span><span class='comma'>,</span> <span class='id identifier rubyid_sets4'>sets4</span><span class='comma'>,</span> <span class='id identifier rubyid_reps4'>reps4</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_add_values_to_tables'><span class='object_link'><a href="Model.html#add_values_to_tables-instance_method" title="Model#add_values_to_tables (method)">add_values_to_tables</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_muscletype4'>muscletype4</span><span class='comma'>,</span> <span class='id identifier rubyid_exercise4'>exercise4</span><span class='comma'>,</span> <span class='id identifier rubyid_sets4'>sets4</span><span class='comma'>,</span> <span class='id identifier rubyid_reps4'>reps4</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_sets5'>sets5</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
-        <span class='id identifier rubyid_add_values_to_tables'><span class='object_link'><a href="Model.html#add_values_to_tables-instance_method" title="Model#add_values_to_tables (method)">add_values_to_tables</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_muscletype5'>muscletype5</span><span class='comma'>,</span> <span class='id identifier rubyid_exercise5'>exercise5</span><span class='comma'>,</span> <span class='id identifier rubyid_sets5'>sets5</span><span class='comma'>,</span> <span class='id identifier rubyid_reps5'>reps5</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_add_values_to_tables'><span class='object_link'><a href="Model.html#add_values_to_tables-instance_method" title="Model#add_values_to_tables (method)">add_values_to_tables</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_muscletype5'>muscletype5</span><span class='comma'>,</span> <span class='id identifier rubyid_exercise5'>exercise5</span><span class='comma'>,</span> <span class='id identifier rubyid_sets5'>sets5</span><span class='comma'>,</span> <span class='id identifier rubyid_reps5'>reps5</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
 
     <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/workouts</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1719,19 +1834,6 @@
       <pre class="lines">
 
 
-253
-254
-255
-256
-257
-258
-259
-260
-261
-262
-263
-264
-265
 266
 267
 268
@@ -1755,10 +1857,28 @@
 286
 287
 288
-289</pre>
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 253</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 266</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/workouts/:id/delete</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -1766,6 +1886,11 @@
     <span class='id identifier rubyid_id3'>id3</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span> <span class='op'>+</span> <span class='int'>2</span> 
     <span class='id identifier rubyid_id4'>id4</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span> <span class='op'>+</span> <span class='int'>3</span> 
     <span class='id identifier rubyid_id5'>id5</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span> <span class='op'>+</span> <span class='int'>4</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='kw'>nil</span>
+        <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:error</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You can&#39;t delete wokrouts if you are not logged in</span><span class='tstring_end'>&quot;</span></span>
+        <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/errror</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
 
     <span class='id identifier rubyid_what_user'>what_user</span> <span class='op'>=</span> <span class='id identifier rubyid_select_value_from_table_where_value'><span class='object_link'><a href="Model.html#select_value_from_table_where_value-instance_method" title="Model#select_value_from_table_where_value (method)">select_value_from_table_where_value</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>user_id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Workouts</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
 
@@ -1861,24 +1986,6 @@
       <pre class="lines">
 
 
-298
-299
-300
-301
-302
-303
-304
-305
-306
-307
-308
-309
-310
-311
-312
-313
-314
-315
 316
 317
 318
@@ -1893,10 +2000,28 @@
 327
 328
 329
-330</pre>
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 298</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 316</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/workouts/:id/delete_admin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -1973,34 +2098,34 @@
       <pre class="lines">
 
 
-356
-357
-358
-359
-360
-361
-362
-363
-364
-365
-366
-367
-368
-369
-370
-371
-372
-373
 374
 375
 376
 377
 378
 379
-380</pre>
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 356</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 374</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/workouts/:id/delete_users</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='kw'>if</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ADMIN</span><span class='tstring_end'>&quot;</span></span>
@@ -2089,22 +2214,22 @@
       <pre class="lines">
 
 
-338
-339
-340
-341
-342
-343
-344
-345
-346
-347
-348
-349
-350</pre>
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 338</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 356</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/workouts/:id/like_funktion</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -2231,19 +2356,6 @@
       <pre class="lines">
 
 
-179
-180
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
 192
 193
 194
@@ -2296,10 +2408,23 @@
 241
 242
 243
-244</pre>
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 192</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/workouts/:id/update</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -2377,7 +2502,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue May  2 12:41:02 2023 by
+  Generated on Thu May  4 01:43:13 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.1.2).
 </div>
